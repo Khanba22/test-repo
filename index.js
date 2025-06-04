@@ -1,20 +1,22 @@
-const jsonfile = require('jsonfile');
 const moment = require('moment');
+const jsonfile = require('jsonfile');
 const simpleGit = require('simple-git');
-
 const FILE_PATH = './data.json';
 
-const DATE = moment().format();
+async function makeCommits() {
+  for (let index = 300; index < 350; index++) {
+    if (Math.random() > 0.5) continue;
 
-const data = {
-    date: DATE
-};
+    const DATE = moment().subtract(index, "d").format();
+    const data = { date: DATE };
 
-jsonfile.writeFile(FILE_PATH, data);
+    await jsonfile.writeFile(FILE_PATH, data);
 
-console.log("Commiting")
-simpleGit().add([FILE_PATH]).commit(DATE,{'--date': DATE})
-console.log("Commit Successful")
-//terminal me directory algopath me jake node index.js run krna 
-//subtract ke aage ktte din pehle krna h uska count likhna 
-//refresh github evrytime 
+    console.log("Committing");
+    await simpleGit().add([FILE_PATH]).commit(DATE, { "--date": DATE });
+    console.log("Commit Successful");
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+}
+
+makeCommits();
