@@ -4,7 +4,7 @@ const simpleGit = require('simple-git');
 const FILE_PATH = './data.json';
 
 async function makeCommits() {
-  for (let index = 300; index < 350; index++) {
+  for (let index = 120; index < 125; index++) {
     if (Math.random() > 0.5) continue;
 
     const DATE = moment().subtract(index, "d").format();
@@ -13,7 +13,8 @@ async function makeCommits() {
     await jsonfile.writeFile(FILE_PATH, data);
 
     console.log("Committing");
-    await simpleGit().add([FILE_PATH]).commit(DATE, { "--date": DATE });
+    const res = await simpleGit().add([FILE_PATH]).commit(DATE, { "--date": DATE });
+    console.log(res)
     console.log("Commit Successful");
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }

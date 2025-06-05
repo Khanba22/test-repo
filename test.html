@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG Content Clip</title>
+    <style>
+      body {
+        background-color: #647340;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+
+      .container {
+        position: relative;
+        width: 378px;
+        height: 388px;
+      }
+
+      /* Image sits on top of SVG */
+      .image-container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        height: 300px;
+        width: 300px;
+        border-radius: 50%;
+        z-index: 10;
+        transition: transform 0.75s ease;
+      }
+
+      .image-container img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        transition: transform 0.75s ease-out;
+      }
+
+      /* Hover effects */
+      .container:hover .image-container {
+        transform: translate(-50%, -100%) scale(0.75);
+      }
+
+      .svg-content {
+        height: 100%;
+        width: 100%;
+        color: #703617;
+        font-size: 1rem;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        backdrop-filter: blur(12.5px);
+        background-color: rgba(243, 233, 181, 0.4);
+        clip-path: path(
+          "M19 89.0526C19 41.8633 61.0791 5.75132 108.041 10.3728C135.35 13.0602 164.604 15.177 189 15.177C213.396 15.177 242.65 13.0602 269.959 10.3728C316.921 5.75132 359 41.8634 359 89.0527V283C359 325.526 324.526 360 282 360H96C53.4741 360 19 325.526 19 283V89.0526Z"
+        );
+      }
+
+      .svg-content-inner {
+        width: 80%;
+        text-align: justify;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        background: transparent;
+        border-radius: 30px;
+        opacity: 0;
+        /* backdrop-filter: blur(10px); */
+        transition: opacity 0.75s ease;
+        padding: 1rem;
+        margin-bottom: 1.9rem;
+      }
+
+      .container:hover .svg-content-inner {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Image on top with scale down on hover -->
+      <div class="image-container">
+        <img src="./ghee.png" alt="ghee" />
+      </div>
+
+      <!-- SVG content with text fading in -->
+      <svg
+        height="100%"
+        width="100%"
+        viewBox="0 0 378 388"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <foreignObject x="0" y="0" width="378" height="388">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="svg-content">
+            <div class="svg-content-inner">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat
+                unde ipsam dolor magni vero deserunt reprehenderit nemo cum
+                saepe totam, laudantium expedita tempora, fuga aperiam aut atque
+                impedit repellat voluptas.
+              </p>
+            </div>
+          </div>
+        </foreignObject>
+
+        <!-- SVG outline and shadow -->
+        <g filter="url(#filter0_d)">
+          <path
+            d="M19 89.0526C19 41.8633 61.0791 5.75132 108.041 10.3728C135.35 13.0602 164.604 15.177 189 15.177C213.396 15.177 242.65 13.0602 269.959 10.3728C316.921 5.75132 359 41.8634 359 89.0527V283C359 325.526 324.526 360 282 360H96C53.4741 360 19 325.526 19 283V89.0526Z"
+            fill="none"
+            stroke="url(#paint0_linear)"
+            stroke-width="2"
+            shape-rendering="crispEdges"
+          />
+        </g>
+
+        <defs>
+          <filter
+            id="filter0_d"
+            x="-6"
+            y="-15.0259"
+            width="390"
+            height="402.426"
+            filterUnits="userSpaceOnUse"
+            color-interpolation-filters="sRGB"
+          >
+            <feOffset dy="9" />
+            <feGaussianBlur stdDeviation="9.2" />
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+            />
+            <feBlend in2="BackgroundImageFix" result="effect1_dropShadow" />
+            <feBlend
+              in="SourceGraphic"
+              in2="effect1_dropShadow"
+              result="shape"
+            />
+          </filter>
+
+          <linearGradient
+            id="paint0_linear"
+            x1="26.9688"
+            y1="33.1939"
+            x2="261.196"
+            y2="385.531"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="white" stop-opacity="0.2" />
+            <stop offset="0.52" stop-opacity="0" />
+            <stop offset="1" stop-color="white" stop-opacity="0.2" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </body>
+</html>
